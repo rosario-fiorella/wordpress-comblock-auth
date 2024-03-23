@@ -66,6 +66,11 @@ class Comblock_Auth_User
 			wp_set_current_user($user->ID);
 
 			wp_set_auth_cookie($user->ID, true, true);
+
+			$link = apply_filters('comblock_redirect_dashboard', site_url('dashboard'));
+
+			wp_redirect($link);
+			exit;
 		} catch (Throwable $e) {
 			add_filter(
 				'comblock_view_login_render',
@@ -105,20 +110,28 @@ class Comblock_Auth_User
 	 */
 	public function login_redirect(): void
 	{
+		/**
+		 * @var WP_Post $post
+		 */
+		global $post;
+
 		if (headers_sent() || is_admin()) {
 			return;
 		}
 
-		if (!$this->is_logged() && is_page('dashboard')) {
-			$link = apply_filters('comblock_redirect_login', site_url('login'));
-			wp_redirect($link);
-			exit;
+		$is_logged = $this->is_logged();
+
+		if (!$is_logged && has_shortcode($post->post_content, 'comblock_dashboard')) {
+			$redirect = apply_filters('comblock_redirect_login', site_url('login'));
+		} elseif (!$is_logged && is_page('dashboard')) {
+			$redirect = apply_filters('comblock_redirect_login', site_url('login'));
+		} elseif ($is_logged && is_page('login')) {
+			$redirect = apply_filters('comblock_redirect_dashboard', site_url('dashboard'));
+		} else {
+			return;
 		}
 
-		if ($this->is_logged() && is_page('login')) {
-			$link = apply_filters('comblock_redirect_dashboard', site_url('dashboard'));
-			wp_redirect($link);
-			exit;
-		}
+		wp_redirect($redirect);
+		exit;
 	}
 }
