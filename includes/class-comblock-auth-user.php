@@ -68,7 +68,7 @@ class Comblock_Auth_User
 			wp_set_auth_cookie($user->ID, true, true);
 		} catch (Throwable $e) {
 			add_filter(
-				'comblock_shortcode_login_render',
+				'comblock_view_login_render',
 				/**
 				 * @since 1.0.0
 				 * @param string $output
