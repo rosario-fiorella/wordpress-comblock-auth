@@ -10,7 +10,7 @@ class Comblock_Auth_Deactivator
 	/**
 	 * @since 1.0.0
 	 */
-	public static function deactivate()
+	public static function deactivate(): void
 	{
 	}
 }

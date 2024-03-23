@@ -34,11 +34,10 @@ class Comblock_Auth
 	public function __construct()
 	{
 		$this->version = COMBLOCK_AUTH_VERSION;
-		$this->comblock_auth = COMBLOCK_DOMAIN;
+		$this->comblock_auth = COMBLOCK_AUTH_DOMAIN;
 
 		$this->load_dependencies();
 		$this->set_locale();
-		$this->define_register_hooks();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 	}
@@ -49,13 +48,25 @@ class Comblock_Auth
 	 */
 	private function load_dependencies()
 	{
-		require_once plugin_dir_path(__DIR__) . 'includes/class-comblock-auth-activator.php';
-		require_once plugin_dir_path(__DIR__) . 'includes/class-comblock-auth-deactivator.php';
-		require_once plugin_dir_path(__DIR__) . 'includes/class-comblock-auth-uninstaller.php';
-		require_once plugin_dir_path(__DIR__) . 'includes/class-comblock-auth-loader.php';
-		require_once plugin_dir_path(__DIR__) . 'includes/class-comblock-auth-i18n.php';
-		require_once plugin_dir_path(__DIR__) . 'admin/class-comblock-auth-admin.php';
-		require_once plugin_dir_path(__DIR__) . 'public/class-comblock-auth-public.php';
+		$plugin_dir_path = plugin_dir_path(__DIR__);
+
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-loader.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-i18n.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-user.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-data_mapper.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-view-resolver.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-view-manager.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-shortcode-render.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-view-login.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-view-dashboard.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-post-manager.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-page.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-shortcode.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-activator.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-deactivator.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-uninstaller.php';
+		require_once $plugin_dir_path . 'admin/class-comblock-auth-admin.php';
+		require_once $plugin_dir_path . 'public/class-comblock-auth-public.php';
 
 		$this->loader = new Comblock_Auth_Loader();
 	}
@@ -79,6 +90,11 @@ class Comblock_Auth
 	{
 		$plugin_admin = new Comblock_Auth_Admin($this->get_comblock_auth(), $this->get_version());
 
+		$plugin_file = plugin_dir_path(__DIR__) . 'index.php';
+
+		$this->loader->add_activation($plugin_file, Comblock_Auth_Activator::class, 'activate');
+		$this->loader->add_deactivation($plugin_file, Comblock_Auth_Deactivator::class, 'deactivate');
+		$this->loader->add_uninstall($plugin_file, Comblock_Auth_Uninstaller::class, 'uninstall');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 	}
@@ -89,21 +105,17 @@ class Comblock_Auth
 	 */
 	private function define_public_hooks()
 	{
-		$plugin_public = new Comblock_Auth_Public($this->get_comblock_auth(), $this->get_version());
+		$public = new Comblock_Auth_Public($this->get_comblock_auth(), $this->get_version());
+		$auth_user = new Comblock_Auth_User();
+		$shortcode = new Comblock_Auth_Shortcode();
 
-		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
-		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
-	}
-
-	/**
-	 * @since 1.0.0
-	 * @access private
-	 */
-	private function define_register_hooks()
-	{
-		register_activation_hook(__FILE__, [Comblock_Auth_Activator::class, 'activate']);
-		register_deactivation_hook(__FILE__, [Comblock_Auth_Deactivator::class, 'deactivate']);
-		register_uninstall_hook(__FILE__, [Comblock_Auth_Uninstaller::class, 'uninstall']);
+		$this->loader->add_action('wp_enqueue_scripts', $public, 'enqueue_styles');
+		$this->loader->add_action('wp_enqueue_scripts', $public, 'enqueue_scripts');
+		$this->loader->add_action('template_redirect', $auth_user, 'do_logout');
+		$this->loader->add_action('template_redirect', $auth_user, 'do_login');
+		$this->loader->add_action('template_redirect', $auth_user, 'login_redirect');
+		$this->loader->add_shortcode('comblock_login', $shortcode, 'login');
+		$this->loader->add_shortcode('comblock_dashboard', $shortcode, 'dashboard');
 	}
 
 	/**

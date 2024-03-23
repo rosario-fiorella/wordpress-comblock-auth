@@ -10,7 +10,9 @@ class Comblock_Auth_Uninstaller
 	/**
 	 * @since 1.0.0
 	 */
-	public static function uninstall()
+	public static function uninstall(): void
 	{
+		$page = new Comblock_Auth_Page();
+		$page->delete_pages();
 	}
 }

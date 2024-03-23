@@ -10,7 +10,9 @@ class Comblock_Auth_Activator
 	/**
 	 * @since 1.0.0
 	 */
-	public static function activate()
+	public static function activate(): void
 	{
+		$page = new Comblock_Auth_Page();
+		$page->add_pages();
 	}
 }
