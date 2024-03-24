@@ -34,6 +34,7 @@ class Comblock_Auth_View_Dashboard
 
         $dto = new Comblock_Auth_Data_Mapper();
         $dto->user = $user->get_current_user();
+        $dto->user->user_registered = wp_date('d/m/Y', strtotime($dto->user->user_registered));
 
         $dto->text = new Comblock_Auth_Data_Mapper();
         $dto->text->title = __('dashboard.title', 'comblock-auth');

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Comblock front-end login\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-20 11:50+0000\n"
-"PO-Revision-Date: 2024-03-23 14:21+0000\n"
+"PO-Revision-Date: 2024-03-24 17:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: Italiano\n"
 "Language: it_IT\n"
@@ -21,7 +21,7 @@ msgstr "Comblock front-end login"
 
 #: includes/class-comblock-auth-view-dashboard.php:41
 msgid "dashboard.email"
-msgstr "Email"
+msgstr "La tua email:"
 
 #: includes/class-comblock-auth-view-dashboard.php:42
 msgid "dashboard.logout"
@@ -29,11 +29,11 @@ msgstr "Logout"
 
 #: includes/class-comblock-auth-view-dashboard.php:40
 msgid "dashboard.subtitle"
-msgstr "Sottotitolo"
+msgstr "Registrato il:"
 
 #: includes/class-comblock-auth-view-dashboard.php:39
 msgid "dashboard.title"
-msgstr "Titolo"
+msgstr "Nome utente:"
 
 #: includes/class-comblock-auth-view-resolver.php:39
 msgid "error.filename.empty"

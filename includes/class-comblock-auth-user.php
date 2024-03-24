@@ -9,6 +9,21 @@ class Comblock_Auth_User
 {
 	/**
 	 * @since 1.0.0
+	 * @access protected
+	 * @var Comblock_Auth_Page $page
+	 */
+	protected Comblock_Auth_Page $page;
+
+	/**
+	 * @since 1.0.0
+	 */
+	public function __construct()
+	{
+		$this->page = new Comblock_Auth_Page();
+	}
+
+	/**
+	 * @since 1.0.0
 	 * @return bool
 	 */
 	public function is_logged(): bool
@@ -67,7 +82,9 @@ class Comblock_Auth_User
 
 			wp_set_auth_cookie($user->ID, true, true);
 
-			$link = apply_filters('comblock_redirect_dashboard', site_url('dashboard'));
+			$dashboard = $this->page->get_dashboard();
+
+			$link = apply_filters('comblock_redirect_dashboard', get_permalink($dashboard->ID));
 
 			wp_redirect($link);
 			exit;
@@ -98,7 +115,9 @@ class Comblock_Auth_User
 
 		wp_logout();
 
-		$link = apply_filters('comblock_redirect_logout', site_url('login'));
+		$login = $this->page->get_login();
+
+		$link = apply_filters('comblock_redirect_logout', get_permalink($login->ID));
 
 		wp_redirect($link);
 		exit;
@@ -111,7 +130,7 @@ class Comblock_Auth_User
 	public function login_redirect(): void
 	{
 		/**
-		 * @var WP_Post $post
+		 * @var null|WP_Post $post
 		 */
 		global $post;
 
@@ -119,14 +138,27 @@ class Comblock_Auth_User
 			return;
 		}
 
+		/**
+		 * @var bool $is_logged
+		 */
 		$is_logged = $this->is_logged();
 
-		if (!$is_logged && has_shortcode($post->post_content, 'comblock_dashboard')) {
-			$redirect = apply_filters('comblock_redirect_login', site_url('login'));
-		} elseif (!$is_logged && is_page('dashboard')) {
-			$redirect = apply_filters('comblock_redirect_login', site_url('login'));
-		} elseif ($is_logged && is_page('login')) {
-			$redirect = apply_filters('comblock_redirect_dashboard', site_url('dashboard'));
+		/**
+		 * @var WP_Post $login
+		 */
+		$login = $this->page->get_login();
+
+		/**
+		 * @var WP_Post $login
+		 */
+		$dashboard = $this->page->get_dashboard();
+
+		if (!$is_logged && $post && has_shortcode($post->post_content, 'comblock_dashboard')) {
+			$redirect = apply_filters('comblock_redirect_login', get_permalink($login->ID));
+		} elseif (!$is_logged && is_page($dashboard->post_name)) {
+			$redirect = apply_filters('comblock_redirect_login', get_permalink($login->ID));
+		} elseif ($is_logged && is_page($login->post_name)) {
+			$redirect = apply_filters('comblock_redirect_dashboard', get_permalink($dashboard->ID));
 		} else {
 			return;
 		}

@@ -23,13 +23,15 @@ class Comblock_Auth_Post_Manager
      */
     public function add(string $slug, array $options = []): int
     {
+        $slug = apply_filters("comblock_auth_{$slug}_add_slug", $slug);
+
         $post = get_page_by_path($slug, OBJECT, $this->post_type);
 
         if ($post) {
             return $post->ID;
         }
 
-        $options = apply_filters("comblock_{$slug}", $options);
+        $options = apply_filters("comblock_auth_{$slug}_add_options", $options);
 
         $id = wp_insert_post($options, true);
 
@@ -48,6 +50,8 @@ class Comblock_Auth_Post_Manager
      */
     public function delete(string $slug): void
     {
+        $slug = apply_filters("comblock_auth_{$slug}_delete_slug", $slug);
+
         $post = get_page_by_path($slug, OBJECT, $this->post_type);
 
         if (!$post instanceof WP_Post) {
@@ -69,6 +73,8 @@ class Comblock_Auth_Post_Manager
      */
     public function get(string $slug): WP_Post
     {
+        $slug = apply_filters("comblock_auth_{$slug}_get_slug", $slug);
+
         $post = get_page_by_path($slug, OBJECT, $this->post_type);
 
         if (!$post instanceof WP_Post) {

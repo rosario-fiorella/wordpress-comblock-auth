@@ -35,6 +35,7 @@ if (defined('WP_CLI') && WP_CLI) {
  */
 define('COMBLOCK_AUTH_VERSION', '1.0.0');
 define('COMBLOCK_AUTH_DOMAIN', 'comblock-auth');
+define('COMBLOCK_AUTH_PLUGIN_FILE', __FILE__);
 
 require_once plugin_dir_path(__FILE__) . 'includes/class-comblock-auth.php';
 

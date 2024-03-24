@@ -46,4 +46,26 @@ class Comblock_Auth_Page extends Comblock_Auth_Post_Manager
         $this->delete('login');
         $this->delete('dashboard');
     }
+
+    /**
+     * @since 1.0.0
+     * @return WP_Post
+     */
+    public function get_login(): WP_Post
+    {
+        $slug = apply_filters("comblock_auth_page_get_login", 'login');
+
+        return $this->get($slug);
+    }
+
+    /**
+     * @since 1.0.0
+     * @return WP_Post
+     */
+    public function get_dashboard(): WP_Post
+    {
+        $slug = apply_filters("comblock_auth_page_get_dashboard", 'dashboard');
+
+        return $this->get($slug);
+    }
 }

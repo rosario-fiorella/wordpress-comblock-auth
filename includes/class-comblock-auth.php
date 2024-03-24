@@ -38,6 +38,8 @@ class Comblock_Auth
 
 		$this->load_dependencies();
 		$this->set_locale();
+		$this->set_auth();
+		$this->set_shortocode();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 	}
@@ -46,7 +48,7 @@ class Comblock_Auth
 	 * @since 1.0.0
 	 * @access private
 	 */
-	private function load_dependencies()
+	private function load_dependencies(): void
 	{
 		$plugin_dir_path = plugin_dir_path(__DIR__);
 
@@ -54,13 +56,13 @@ class Comblock_Auth
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-i18n.php';
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-user.php';
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-data_mapper.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-post-manager.php';
+		require_once $plugin_dir_path . 'includes/class-comblock-auth-page.php';
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-view-resolver.php';
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-view-manager.php';
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-shortcode-render.php';
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-view-login.php';
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-view-dashboard.php';
-		require_once $plugin_dir_path . 'includes/class-comblock-auth-post-manager.php';
-		require_once $plugin_dir_path . 'includes/class-comblock-auth-page.php';
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-shortcode.php';
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-activator.php';
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-deactivator.php';
@@ -75,53 +77,67 @@ class Comblock_Auth
 	 * @since 1.0.0
 	 * @access private
 	 */
-	private function set_locale()
+	private function set_locale(): void
 	{
-		$plugin_i18n = new Comblock_Auth_i18n();
+		$component = new Comblock_Auth_i18n();
 
-		$this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
+		$this->loader->add_action('plugins_loaded', $component, 'load_plugin_textdomain');
 	}
 
 	/**
 	 * @since 1.0.0
 	 * @access private
 	 */
-	private function define_admin_hooks()
+	private function define_admin_hooks(): void
 	{
-		$plugin_admin = new Comblock_Auth_Admin($this->get_comblock_auth(), $this->get_version());
+		$component = new Comblock_Auth_Admin($this->get_comblock_auth(), $this->get_version());
 
-		$plugin_file = plugin_dir_path(__DIR__) . 'index.php';
-
-		$this->loader->add_activation($plugin_file, Comblock_Auth_Activator::class, 'activate');
-		$this->loader->add_deactivation($plugin_file, Comblock_Auth_Deactivator::class, 'deactivate');
-		$this->loader->add_uninstall($plugin_file, Comblock_Auth_Uninstaller::class, 'uninstall');
-		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
-		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
+		$this->loader->add_activation(COMBLOCK_AUTH_PLUGIN_FILE, Comblock_Auth_Activator::class, 'activate');
+		$this->loader->add_deactivation(COMBLOCK_AUTH_PLUGIN_FILE, Comblock_Auth_Deactivator::class, 'deactivate');
+		$this->loader->add_uninstall(COMBLOCK_AUTH_PLUGIN_FILE, Comblock_Auth_Uninstaller::class, 'uninstall');
+		$this->loader->add_action('admin_enqueue_scripts', $component, 'enqueue_styles');
+		$this->loader->add_action('admin_enqueue_scripts', $component, 'enqueue_scripts');
 	}
 
 	/**
 	 * @since 1.0.0
 	 * @access private
 	 */
-	private function define_public_hooks()
+	private function define_public_hooks(): void
 	{
-		$public = new Comblock_Auth_Public($this->get_comblock_auth(), $this->get_version());
-		$auth_user = new Comblock_Auth_User();
-		$shortcode = new Comblock_Auth_Shortcode();
+		$component = new Comblock_Auth_Public($this->get_comblock_auth(), $this->get_version());
 
-		$this->loader->add_action('wp_enqueue_scripts', $public, 'enqueue_styles');
-		$this->loader->add_action('wp_enqueue_scripts', $public, 'enqueue_scripts');
-		$this->loader->add_action('template_redirect', $auth_user, 'do_logout');
-		$this->loader->add_action('template_redirect', $auth_user, 'do_login');
-		$this->loader->add_action('template_redirect', $auth_user, 'login_redirect');
-		$this->loader->add_shortcode('comblock_login', $shortcode, 'login');
-		$this->loader->add_shortcode('comblock_dashboard', $shortcode, 'dashboard');
+		$this->loader->add_action('wp_enqueue_scripts', $component, 'enqueue_styles');
+		$this->loader->add_action('wp_enqueue_scripts', $component, 'enqueue_scripts');
 	}
 
 	/**
 	 * @since 1.0.0
 	 */
-	public function run()
+	public function set_auth(): void
+	{
+		$component = new Comblock_Auth_User();
+
+		$this->loader->add_action('template_redirect', $component, 'do_logout');
+		$this->loader->add_action('template_redirect', $component, 'do_login');
+		$this->loader->add_action('template_redirect', $component, 'login_redirect');
+	}
+
+	/**
+	 * @since 1.0.0
+	 */
+	public function set_shortocode(): void
+	{
+		$component = new Comblock_Auth_Shortcode();
+
+		$this->loader->add_shortcode('comblock_login', $component, 'login');
+		$this->loader->add_shortcode('comblock_dashboard', $component, 'dashboard');
+	}
+
+	/**
+	 * @since 1.0.0
+	 */
+	public function run(): void
 	{
 		$this->loader->run();
 	}
@@ -130,7 +146,7 @@ class Comblock_Auth
 	 * @since 1.0.0
 	 * @return string
 	 */
-	public function get_comblock_auth()
+	public function get_comblock_auth(): string
 	{
 		return $this->comblock_auth;
 	}
@@ -139,7 +155,7 @@ class Comblock_Auth
 	 * @since 1.0.0
 	 * @return Comblock_Auth_Loader
 	 */
-	public function get_loader()
+	public function get_loader(): Comblock_Auth_Loader
 	{
 		return $this->loader;
 	}
@@ -148,7 +164,7 @@ class Comblock_Auth
 	 * @since 1.0.0
 	 * @return string
 	 */
-	public function get_version()
+	public function get_version(): string
 	{
 		return $this->version;
 	}
