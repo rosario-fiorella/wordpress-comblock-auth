@@ -16,20 +16,34 @@ class Comblock_Auth_Page extends Comblock_Auth_Post_Manager
 
     /**
      * @since 1.0.0
+     * @access protected
+     * @var string $slug_login
+     */
+    protected string $slug_login = 'login';
+
+    /**
+     * @since 1.0.0
+     * @access protected
+     * @var string $slug_dashboard
+     */
+    protected string $slug_dashboard = 'dashboard';
+
+    /**
+     * @since 1.0.0
      * @return void
      */
     public function add_pages(): void
     {
-        $this->add('login', [
-            'post_name' => 'login',
+        $this->add($this->slug_login, [
+            'post_name' => $this->slug_login,
             'post_title' => __('page.login', 'comblock-auth'),
             'post_content' => '<!-- wp:shortcode -->[comblock_login]<!-- /wp:shortcode -->',
             'post_status' => 'publish',
             'post_type' => 'page'
         ]);
 
-        $this->add('dashboard', [
-            'post_name' => 'dashboard',
+        $this->add($this->slug_dashboard, [
+            'post_name' => $this->slug_dashboard,
             'post_title' => __('page.dashboard', 'comblock-auth'),
             'post_content' => '<!-- wp:shortcode -->[comblock_dashboard]<!-- /wp:shortcode -->',
             'post_status' => 'publish',
@@ -43,8 +57,8 @@ class Comblock_Auth_Page extends Comblock_Auth_Post_Manager
      */
     public function delete_pages(): void
     {
-        $this->delete('login');
-        $this->delete('dashboard');
+        $this->delete($this->slug_login);
+        $this->delete($this->slug_dashboard);
     }
 
     /**
@@ -53,7 +67,7 @@ class Comblock_Auth_Page extends Comblock_Auth_Post_Manager
      */
     public function get_login(): WP_Post
     {
-        $slug = apply_filters("comblock_auth_page_get_login", 'login');
+        $slug = apply_filters("comblock_auth_page_get_login", $this->slug_login);
 
         return $this->get($slug);
     }
@@ -64,7 +78,7 @@ class Comblock_Auth_Page extends Comblock_Auth_Post_Manager
      */
     public function get_dashboard(): WP_Post
     {
-        $slug = apply_filters("comblock_auth_page_get_dashboard", 'dashboard');
+        $slug = apply_filters("comblock_auth_page_get_dashboard", $this->slug_dashboard);
 
         return $this->get($slug);
     }
