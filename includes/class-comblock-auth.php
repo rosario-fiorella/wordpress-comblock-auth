@@ -57,6 +57,8 @@ class Comblock_Auth
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-user.php';
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-data_mapper.php';
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-post-manager.php';
+		require_once $plugin_dir_path . 'includes/pages/class-comblock-auth-page-login.php';
+		require_once $plugin_dir_path . 'includes/pages/class-comblock-auth-page-dashboard.php';
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-page.php';
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-view-resolver.php';
 		require_once $plugin_dir_path . 'includes/class-comblock-auth-view-manager.php';

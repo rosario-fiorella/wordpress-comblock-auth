@@ -10,23 +10,18 @@ class Comblock_Auth_Page extends Comblock_Auth_Post_Manager
     /**
      * @since 1.0.0
      * @access protected
-     * @var string $post_type
+     * @var Comblock_Auth_Post_Manager[] $pages
      */
-    protected string $post_type = 'page';
+    protected array $pages = [];
 
     /**
      * @since 1.0.0
-     * @access protected
-     * @var string $slug_login
      */
-    protected string $slug_login = 'login';
-
-    /**
-     * @since 1.0.0
-     * @access protected
-     * @var string $slug_dashboard
-     */
-    protected string $slug_dashboard = 'dashboard';
+    public function __construct()
+    {
+        $this->pages[] = new Comblock_Auth_Page_Login();
+        $this->pages[] = new Comblock_Auth_Page_Dashboard();
+    }
 
     /**
      * @since 1.0.0
@@ -34,21 +29,9 @@ class Comblock_Auth_Page extends Comblock_Auth_Post_Manager
      */
     public function add_pages(): void
     {
-        $this->add($this->slug_login, [
-            'post_name' => $this->slug_login,
-            'post_title' => __('page.login', 'comblock-auth'),
-            'post_content' => '<!-- wp:shortcode -->[comblock_login]<!-- /wp:shortcode -->',
-            'post_status' => 'publish',
-            'post_type' => 'page'
-        ]);
-
-        $this->add($this->slug_dashboard, [
-            'post_name' => $this->slug_dashboard,
-            'post_title' => __('page.dashboard', 'comblock-auth'),
-            'post_content' => '<!-- wp:shortcode -->[comblock_dashboard]<!-- /wp:shortcode -->',
-            'post_status' => 'publish',
-            'post_type' => 'page'
-        ]);
+        foreach ($this->pages as $page) {
+            $page->add_page();
+        }
     }
 
     /**
@@ -57,29 +40,8 @@ class Comblock_Auth_Page extends Comblock_Auth_Post_Manager
      */
     public function delete_pages(): void
     {
-        $this->delete($this->slug_login);
-        $this->delete($this->slug_dashboard);
-    }
-
-    /**
-     * @since 1.0.0
-     * @return WP_Post
-     */
-    public function get_login(): WP_Post
-    {
-        $slug = apply_filters("comblock_auth_page_get_login", $this->slug_login);
-
-        return $this->get($slug);
-    }
-
-    /**
-     * @since 1.0.0
-     * @return WP_Post
-     */
-    public function get_dashboard(): WP_Post
-    {
-        $slug = apply_filters("comblock_auth_page_get_dashboard", $this->slug_dashboard);
-
-        return $this->get($slug);
+        foreach ($this->pages as $page) {
+            $page->delete_page();
+        }
     }
 }
