@@ -39,5 +39,26 @@ define('COMBLOCK_AUTH_PLUGIN_FILE', __FILE__);
 
 require_once plugin_dir_path(__FILE__) . 'includes/class-comblock-auth.php';
 
-$comblock_auth = new Comblock_Auth();
-$comblock_auth->run();
+try {
+    $comblock_auth = new Comblock_Auth();
+    $comblock_auth->run();
+} catch (Throwable $e) {
+    add_action(
+        'admin_notices',
+        /**
+         * @since 1.0.0
+         * @return void
+         */
+        function () use ($e): void {
+            printf(
+                '<div class="error">
+                    <pre>%s</pre>
+                    <p>in <strong>%s</strong> at line <strong>%s</strong></p>
+                </div>',
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
+    );
+}

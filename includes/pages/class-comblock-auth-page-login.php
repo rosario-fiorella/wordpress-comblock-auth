@@ -5,7 +5,7 @@
  * @package wordpress-comblock-auth
  * @subpackage wordpress-comblock-auth/includes/pages
  */
-class Comblock_Auth_Page_Login extends Comblock_Auth_Post_Manager
+class Comblock_Auth_Page_Login extends Comblock_Auth_Post_Repository
 {
     /**
      * @since 1.0.0
@@ -16,77 +16,36 @@ class Comblock_Auth_Page_Login extends Comblock_Auth_Post_Manager
 
     /**
      * @since 1.0.0
-     * @access protected
-     * @var string $slug
-     */
-    protected string $slug;
-
-    /**
-     * @since 1.0.0
-     * @access protected
-     * @var array<string, mixed> $args
-     */
-    protected array $args = [];
-
-    /**
-     * @since 1.0.0
      */
     public function __construct()
     {
-        $this->slug = apply_filters('comblock_auth_page_login_slug', 'login');
+        $this->set_slug('comblock-auth-login');
 
-        $this->args = apply_filters('comblock_auth_page_login_options', [
-            'post_name' => $this->slug,
-            'post_title' => __('page.login', 'comblock-auth'),
-            'post_content' => '<!-- wp:shortcode -->[comblock_login]<!-- /wp:shortcode -->',
-            'post_status' => 'publish',
-            'post_type' => $this->post_type
-        ]);
-    }
-
-    /**
-     * @since 1.0.0
-     * @return void
-     */
-    public function add_page(): void
-    {
-        $this->add($this->slug, $this->args);
+        $this->set_args();
     }
 
     /**
      * @since 1.0.0
      */
-    public function delete_page(): void
+    public function set_args(): void
     {
-        $this->delete($this->slug);
+        $this->set_arg('post_name', $this->slug);
+        $this->set_arg('post_title', __('page.login', 'comblock-auth'));
+        $this->set_arg('post_content', '<!-- wp:shortcode -->[comblock_login]<!-- /wp:shortcode -->');
+        $this->set_arg('post_status', 'publish');
+        $this->set_arg('post_type', $this->post_type);
     }
 
     /**
      * @since 1.0.0
-     * @return WP_Post
+     * @throws RuntimeException
      */
-    public function get_page(): WP_Post
+    public function validate_post(): void
     {
-        return $this->get($this->slug);
-    }
+        $post = $this->get_post();
 
-    /**
-     * @since 1.0.0
-     * @return string
-     */
-    public function get_permalink(): string
-    {
-        $post = $this->get_page();
-
-        return get_permalink($post->ID);
-    }
-
-    /**
-     * @since 1.0.0
-     * @return string
-     */
-    public function get_slug(): string
-    {
-        return $this->slug;
+        if (!has_shortcode($post->post_content, 'comblock_login')) {
+            throw new RuntimeException(__('error.validation.post', 'comblock-auth'));
+        }
     }
 }

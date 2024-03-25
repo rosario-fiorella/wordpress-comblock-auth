@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Comblock front-end login\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-20 11:50+0000\n"
-"PO-Revision-Date: 2024-03-24 17:01+0000\n"
+"PO-Revision-Date: 2024-03-25 20:39+0000\n"
 "Last-Translator: \n"
 "Language-Team: Italiano\n"
 "Language: it_IT\n"
@@ -19,19 +19,19 @@ msgstr ""
 msgid "Comblock front-end login"
 msgstr "Comblock front-end login"
 
-#: includes/class-comblock-auth-view-dashboard.php:41
+#: includes/class-comblock-auth-view-dashboard.php:42
 msgid "dashboard.email"
 msgstr "La tua email:"
 
-#: includes/class-comblock-auth-view-dashboard.php:42
+#: includes/class-comblock-auth-view-dashboard.php:43
 msgid "dashboard.logout"
 msgstr "Logout"
 
-#: includes/class-comblock-auth-view-dashboard.php:40
+#: includes/class-comblock-auth-view-dashboard.php:41
 msgid "dashboard.subtitle"
 msgstr "Registrato il:"
 
-#: includes/class-comblock-auth-view-dashboard.php:39
+#: includes/class-comblock-auth-view-dashboard.php:40
 msgid "dashboard.title"
 msgstr "Nome utente:"
 
@@ -39,18 +39,44 @@ msgstr "Nome utente:"
 msgid "error.filename.empty"
 msgstr "Errore: nome file non valido"
 
-#: includes/class-comblock-auth-user.php:54
+#: includes/class-comblock-auth-user.php:76
 msgid "error.invalid_nonce"
 msgstr "Errore: token non valido"
 
-#: includes/class-comblock-auth-post-manager.php:60
+#: includes/class-comblock-auth-user.php:67
+msgid "error.page.not_found"
+msgstr "Errore: pagina non trovata"
+
+#: includes/class-comblock-auth-post-repository.php:68
+msgid "error.post.arg.key.empty"
+msgstr "Errore: argomento non valido"
+
+#: includes/class-comblock-auth-post-repository.php:87
+msgid "error.post.args.empty"
+msgstr "Errore: argomento non valido"
+
+#: includes/class-comblock-auth-post-repository.php:121
 msgid "error.post.delete"
 msgstr "Errore: post non eliminato"
 
-#: includes/class-comblock-auth-post-manager.php:54
-#: includes/class-comblock-auth-post-manager.php:75
+#: includes/class-comblock-auth-post-repository.php:115
+#: includes/class-comblock-auth-post-repository.php:135
 msgid "error.post.not_found"
 msgstr "Errore: post non trovato"
+
+#: includes/class-comblock-auth-post-repository.php:39
+#: includes/class-comblock-auth-post-repository.php:83
+msgid "error.post.slug.empty"
+msgstr "Errore: argomento non valido"
+
+#: includes/class-comblock-auth-post-repository.php:53
+msgid "error.post_type.not_valid"
+msgstr "Errore: tipologia di post non valido"
+
+#: includes/pages/class-comblock-auth-page-dashboard.php:48
+#: includes/pages/class-comblock-auth-page-login.php:48
+msgid "error.validation.post"
+msgstr "Errore: validazione post fallita"
 
 #: includes/class-comblock-auth-view-manager.php:71
 msgid "error.view.not_load"
@@ -68,11 +94,11 @@ msgstr "https://github.com/rosario-fiorella/"
 msgid "https://github.com/rosario-fiorella/wordpress-comblock-auth/"
 msgstr "https://github.com/rosario-fiorella/wordpress-comblock-auth/"
 
-#: includes/class-comblock-auth-page.php:33
+#: includes/pages/class-comblock-auth-page-dashboard.php:33
 msgid "page.dashboard"
 msgstr "Dashboard"
 
-#: includes/class-comblock-auth-page.php:25
+#: includes/pages/class-comblock-auth-page-login.php:33
 msgid "page.login"
 msgstr "Login"
 

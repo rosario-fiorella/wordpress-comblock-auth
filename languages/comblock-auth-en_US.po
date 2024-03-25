@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Comblock front-end login\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-23 14:40+0000\n"
-"PO-Revision-Date: 2024-03-24 17:02+0000\n"
+"PO-Revision-Date: 2024-03-25 20:40+0000\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
@@ -15,17 +15,116 @@ msgstr ""
 "X-Loco-Version: 2.6.7; wp-6.4.3\n"
 "X-Domain: comblock-auth"
 
-#: includes/class-comblock-auth-user.php:54
-msgid "error.invalid_nonce"
-msgstr "Error: invalid nonce"
+#. Name of the plugin
+msgid "Comblock front-end login"
+msgstr "Comblock front-end login"
+
+#: includes/class-comblock-auth-view-dashboard.php:42
+msgid "dashboard.email"
+msgstr "Your email:"
+
+#: includes/class-comblock-auth-view-dashboard.php:43
+msgid "dashboard.logout"
+msgstr "Logout"
+
+#: includes/class-comblock-auth-view-dashboard.php:41
+msgid "dashboard.subtitle"
+msgstr "Registered on: "
+
+#: includes/class-comblock-auth-view-dashboard.php:40
+msgid "dashboard.title"
+msgstr "Username:"
 
 #: includes/class-comblock-auth-view-resolver.php:39
 msgid "error.filename.empty"
 msgstr "Error: empty filename"
 
+#: includes/class-comblock-auth-user.php:76
+msgid "error.invalid_nonce"
+msgstr "Error: invalid nonce"
+
+#: includes/class-comblock-auth-user.php:67
+msgid "error.page.not_found"
+msgstr "Error: page not found"
+
+#: includes/class-comblock-auth-post-repository.php:68
+msgid "error.post.arg.key.empty"
+msgstr "Error: invalid argument"
+
+#: includes/class-comblock-auth-post-repository.php:87
+msgid "error.post.args.empty"
+msgstr "Error: invalid argument"
+
+#: includes/class-comblock-auth-post-repository.php:121
+msgid "error.post.delete"
+msgstr "Error: post not deleted"
+
+#: includes/class-comblock-auth-post-repository.php:115
+#: includes/class-comblock-auth-post-repository.php:135
+msgid "error.post.not_found"
+msgstr "Error: post not found"
+
+#: includes/class-comblock-auth-post-repository.php:39
+#: includes/class-comblock-auth-post-repository.php:83
+msgid "error.post.slug.empty"
+msgstr "Error: invalid argument"
+
+#: includes/class-comblock-auth-post-repository.php:53
+msgid "error.post_type.not_valid"
+msgstr "Error: invalid post type"
+
+#: includes/pages/class-comblock-auth-page-dashboard.php:48
+#: includes/pages/class-comblock-auth-page-login.php:48
+msgid "error.validation.post"
+msgstr "Error: invalid validation"
+
+#: includes/class-comblock-auth-view-manager.php:71
+msgid "error.view.not_load"
+msgstr "Error: view note loaded"
+
 #: includes/class-comblock-auth-view-resolver.php:79
 msgid "error.view.not_resolved"
 msgstr "Error: view not resolved"
+
+#. Author URI of the plugin
+msgid "https://github.com/rosario-fiorella/"
+msgstr "https://github.com/rosario-fiorella/"
+
+#. URI of the plugin
+msgid "https://github.com/rosario-fiorella/wordpress-comblock-auth/"
+msgstr "https://github.com/rosario-fiorella/wordpress-comblock-auth/"
+
+#: includes/pages/class-comblock-auth-page-dashboard.php:33
+msgid "page.dashboard"
+msgstr "Dashbaord"
+
+#: includes/pages/class-comblock-auth-page-login.php:33
+msgid "page.login"
+msgstr "Login"
+
+#: includes/class-comblock-auth-view-login.php:51
+msgid "remember.error"
+msgstr "Error: remember field is required"
+
+#: includes/class-comblock-auth-view-login.php:49
+msgid "remember.label"
+msgstr "Remember"
+
+#: includes/class-comblock-auth-view-login.php:54
+msgid "reset.label"
+msgstr "Reset"
+
+#. Author of the plugin
+msgid "Rosario Fiorella"
+msgstr "Rosario Fiorella"
+
+#: includes/class-comblock-auth-view-login.php:57
+msgid "submit.label"
+msgstr "Login"
+
+#: includes/class-comblock-auth-view-login.php:40
+msgid "user_login.error"
+msgstr "Error: user login invalid"
 
 #: includes/class-comblock-auth-view-login.php:37
 msgid "user_login.label"
@@ -35,9 +134,9 @@ msgstr "User login"
 msgid "user_login.placeholder"
 msgstr "Insert your user login"
 
-#: includes/class-comblock-auth-view-login.php:40
-msgid "user_login.error"
-msgstr "Error: user login invalid"
+#: includes/class-comblock-auth-view-login.php:46
+msgid "user_password.error"
+msgstr "Error: password not valid"
 
 #: includes/class-comblock-auth-view-login.php:43
 msgid "user_password.label"
@@ -47,67 +146,6 @@ msgstr "Password"
 msgid "user_password.placeholder"
 msgstr "Insert your password"
 
-#: includes/class-comblock-auth-view-login.php:46
-msgid "user_password.error"
-msgstr "Error: password not valid"
-
-#: includes/class-comblock-auth-view-login.php:49
-msgid "remember.label"
-msgstr "Remember"
-
-#: includes/class-comblock-auth-view-login.php:51
-msgid "remember.error"
-msgstr "Error: remember field is required"
-
-#: includes/class-comblock-auth-view-login.php:54
-msgid "reset.label"
-msgstr "Reset"
-
-#: includes/class-comblock-auth-view-login.php:57
-msgid "submit.label"
-msgstr "Login"
-
-#: includes/class-comblock-auth-page.php:25
-msgid "page.login"
-msgstr "Login"
-
-#: includes/class-comblock-auth-page.php:33
-msgid "page.dashboard"
-msgstr "Dashbaord"
-
-#: includes/class-comblock-auth-view-dashboard.php:39
-msgid "dashboard.title"
-msgstr "Username:"
-
-#: includes/class-comblock-auth-view-dashboard.php:40
-msgid "dashboard.subtitle"
-msgstr "Registered on: "
-
-#: includes/class-comblock-auth-view-dashboard.php:41
-msgid "dashboard.email"
-msgstr "Your email:"
-
-#: includes/class-comblock-auth-view-dashboard.php:42
-msgid "dashboard.logout"
-msgstr "Logout"
-
-#: includes/class-comblock-auth-post-manager.php:54
-#: includes/class-comblock-auth-post-manager.php:75
-msgid "error.post.not_found"
-msgstr "Error: post not found"
-
-#: includes/class-comblock-auth-post-manager.php:60
-msgid "error.post.delete"
-msgstr "Error: post not deleted"
-
-#: includes/class-comblock-auth-view-manager.php:71
-msgid "error.view.not_load"
-msgstr "Error: view note loaded"
-
-#. Name of the plugin
-msgid "Comblock front-end login"
-msgstr ""
-
 #. Description of the plugin
 msgid ""
 "WordPress plugin that allows you to authenticate users in the front-end in a "
@@ -115,15 +153,3 @@ msgid ""
 msgstr ""
 "WordPress plugin that allows you to authenticate users in the front-end in a "
 "reserved area ."
-
-#. URI of the plugin
-msgid "https://github.com/rosario-fiorella/wordpress-comblock-auth/"
-msgstr "https://github.com/rosario-fiorella/wordpress-comblock-auth/"
-
-#. Author of the plugin
-msgid "Rosario Fiorella"
-msgstr "Rosario Fiorella"
-
-#. Author URI of the plugin
-msgid "https://github.com/rosario-fiorella/"
-msgstr "https://github.com/rosario-fiorella/"
