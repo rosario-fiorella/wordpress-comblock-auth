@@ -7,7 +7,7 @@
  * @author            Rosario Fiorella
  *
  * @wordpress-plugin
- * Plugin Name:       Comblock front-end login
+ * Plugin Name:       Comblock Front-End Login
  * Plugin URI:        https://github.com/rosario-fiorella/wordpress-comblock-auth/
  * Description:       WordPress plugin that allows you to authenticate users in the front-end in a reserved area .
  * Version:           1.0.0
