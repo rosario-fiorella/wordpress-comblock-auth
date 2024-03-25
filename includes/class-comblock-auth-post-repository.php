@@ -39,7 +39,7 @@ class Comblock_Auth_Post_Repository
             throw new UnexpectedValueException(__('error.post.slug.empty', 'comblock-auth'));
         }
 
-        $this->slug = apply_filters("comblock_auth_page_{$slug}", $slug);
+        $this->slug = apply_filters("comblock_auth_post_{$slug}", $slug);
     }
 
     /**
@@ -86,6 +86,8 @@ class Comblock_Auth_Post_Repository
         if (empty($this->args)) {
             throw new UnexpectedValueException(__('error.post.args.empty', 'comblock-auth'));
         }
+
+        $this->args = apply_filters("comblock_auth_post_{$this->slug}_args", $this->args);
 
         $post = get_page_by_path($this->slug, OBJECT, $this->post_type);
 
