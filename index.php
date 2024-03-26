@@ -55,9 +55,9 @@ try {
                     <pre>%s</pre>
                     <p>in <strong>%s</strong> at line <strong>%s</strong></p>
                 </div>',
-                $e->getMessage(),
-                $e->getFile(),
-                $e->getLine()
+                esc_html($e->getMessage()),
+                esc_html($e->getFile()),
+                esc_html($e->getLine())
             );
         }
     );

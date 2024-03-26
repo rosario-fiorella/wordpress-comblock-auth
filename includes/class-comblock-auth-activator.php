@@ -52,12 +52,12 @@ class Comblock_Auth_Activator
 			}
 		}
 
-		printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', $success);
+		printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', wp_kses_post($success));
 
 		if (!$errors) {
 			return;
 		}
 
-		printf('<div class="notice notice-error error is-dismissible"><p>%s</p></div>', $errors);
+		printf('<div class="notice notice-error error is-dismissible"><p>%s</p></div>', wp_kses_post($errors));
 	}
 }

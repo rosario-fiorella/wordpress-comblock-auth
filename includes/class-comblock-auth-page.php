@@ -90,19 +90,19 @@ class Comblock_Auth_Page
      */
     public function delete_pages(): void
     {
-        $errors = [];
+        $errors = '';
 
         foreach ($this->pages as $page) {
             try {
                 $page->validate_post();
                 $page->delete_post();
             } catch (Throwable $e) {
-                $errors[] = $e->getMessage();
+                $errors .= PHP_EOL . esc_html($e->getMessage());
             }
         }
 
         if (!empty($errors)) {
-            throw new RuntimeException(implode(PHP_EOL, $errors));
+            throw new RuntimeException($errors);
         }
     }
 
