@@ -15,8 +15,12 @@ class Comblock_Auth_Activator
 		// TODO: Improve the management of transients 
 		set_transient(__CLASS__, true, 5);
 
-		$page = new Comblock_Auth_Page();
-		$page->add_pages();
+		try {
+			$page = new Comblock_Auth_Page();
+			$page->add_pages();
+		} catch (Throwable $e) {
+			// errors will be handled with Comblock_Auth_Activator::notice
+		}
 	}
 
 	/**
@@ -43,6 +47,8 @@ class Comblock_Auth_Activator
 		$page = new Comblock_Auth_Page();
 		foreach ($page->get_pages() as $page) {
 			try {
+				$page->validate_post();
+
 				$post = $page->get_post();
 				$post_url = $page->get_permalink();
 
@@ -52,12 +58,12 @@ class Comblock_Auth_Activator
 			}
 		}
 
-		printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', wp_kses_post($success));
+		printf('<div class="notice notice-success is-dismissible">%s</div>', wp_kses_post($success));
 
 		if (!$errors) {
 			return;
 		}
 
-		printf('<div class="notice notice-error error is-dismissible"><p>%s</p></div>', wp_kses_post($errors));
+		printf('<div class="notice notice-error error is-dismissible">%s</div>', wp_kses_post($errors));
 	}
 }
