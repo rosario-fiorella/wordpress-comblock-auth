@@ -97,6 +97,7 @@ class Comblock_Auth
         $this->loader->add_activation(COMBLOCK_AUTH_PLUGIN_FILE, Comblock_Auth_Activator::class, 'activate');
         $this->loader->add_deactivation(COMBLOCK_AUTH_PLUGIN_FILE, Comblock_Auth_Deactivator::class, 'deactivate');
         $this->loader->add_uninstall(COMBLOCK_AUTH_PLUGIN_FILE, Comblock_Auth_Uninstaller::class, 'uninstall');
+        $this->loader->add_action('admin_notices', Comblock_Auth_Activator::class, 'notice');
         $this->loader->add_action('admin_enqueue_scripts', $component, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $component, 'enqueue_scripts');
     }

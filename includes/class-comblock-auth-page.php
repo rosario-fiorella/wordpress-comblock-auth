@@ -105,4 +105,13 @@ class Comblock_Auth_Page
             throw new RuntimeException(implode(PHP_EOL, $errors));
         }
     }
+
+    /**
+     * @since 1.0.0
+     * @return Comblock_Auth_Post_Repository[]
+     */
+    public function get_pages(): array
+    {
+        return $this->pages;
+    }
 }

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Comblock front-end login\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-20 11:50+0000\n"
-"PO-Revision-Date: 2024-03-25 20:39+0000\n"
+"PO-Revision-Date: 2024-03-26 11:28+0000\n"
 "Last-Translator: \n"
 "Language-Team: Italiano\n"
 "Language: it_IT\n"
@@ -15,8 +15,15 @@ msgstr ""
 "X-Loco-Version: 2.6.7; wp-6.4.3\n"
 "X-Domain: comblock-auth"
 
+#: includes/class-comblock-auth-activator.php:35
+msgid "activator.notice.generic.success"
+msgstr ""
+"Attivazione completata, alcune pagine sono state generate automaticamente"
+
 #. Name of the plugin
-msgid "Comblock front-end login"
+#, fuzzy
+#| msgid "Comblock front-end login"
+msgid "Comblock Front-End Login"
 msgstr "Comblock front-end login"
 
 #: includes/class-comblock-auth-view-dashboard.php:42
@@ -55,12 +62,12 @@ msgstr "Errore: argomento non valido"
 msgid "error.post.args.empty"
 msgstr "Errore: argomento non valido"
 
-#: includes/class-comblock-auth-post-repository.php:121
+#: includes/class-comblock-auth-post-repository.php:123
 msgid "error.post.delete"
 msgstr "Errore: post non eliminato"
 
-#: includes/class-comblock-auth-post-repository.php:115
-#: includes/class-comblock-auth-post-repository.php:135
+#: includes/class-comblock-auth-post-repository.php:117
+#: includes/class-comblock-auth-post-repository.php:137
 msgid "error.post.not_found"
 msgstr "Errore: post non trovato"
 
